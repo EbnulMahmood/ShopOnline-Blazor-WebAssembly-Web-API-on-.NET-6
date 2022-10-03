@@ -4,7 +4,7 @@ using ShopOnline.Api.Data;
 using ShopOnline.Api.Repositories;
 using ShopOnline.Api.Repositories.Contracts;
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+var ShopOnlineWebAllowSpecificOrigins = "_shopOnlineWebAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
+    options.AddPolicy(name: ShopOnlineWebAllowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins("https://localhost:44371")
+            policy.WithOrigins("https://localhost:44371",
+                  "https://localhost:7216")
                   .AllowAnyMethod()
                   .WithHeaders(HeaderNames.ContentType);
         });
@@ -42,7 +43,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors(ShopOnlineWebAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
 
