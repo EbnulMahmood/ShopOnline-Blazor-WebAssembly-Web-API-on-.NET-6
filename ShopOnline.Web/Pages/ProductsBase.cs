@@ -12,7 +12,20 @@ namespace ShopOnline.Web.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Products = await ProductService.LoadProducts();
+            Products = await ProductService.LoadItems();
+        }
+
+        protected IOrderedEnumerable<IGrouping<int, ProductDto>> LoadGroupedProductsByCategory()
+        {
+            return from product in Products
+                   group product by product.CategoryId into prodByCatGroup
+                   orderby prodByCatGroup.Key
+                   select prodByCatGroup;
+        }
+
+        protected static string GetCategoryName(IGrouping<int, ProductDto> groupedProductDto)
+        {
+            return groupedProductDto.FirstOrDefault(pg => pg.CategoryId == groupedProductDto.Key).CategoryName;
         }
     }
 }

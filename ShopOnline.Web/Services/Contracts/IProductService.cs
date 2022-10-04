@@ -4,6 +4,7 @@ namespace ShopOnline.Web.Services.Contracts
 {
     public interface IProductService
     {
-        Task<IEnumerable<ProductDto>> LoadProducts();
+        Task<IEnumerable<ProductDto>> LoadItems();
+        Task<ProductDto> GetItem(int id);
     }
 }

@@ -13,12 +13,39 @@ namespace ShopOnline.Web.Services
             _httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<ProductDto>> LoadProducts()
+        public async Task<IEnumerable<ProductDto>> LoadItems()
         {
             try
             {
-                var products = await _httpClient.GetFromJsonAsync<IEnumerable<ProductDto>>("api/Product");
-                return products;
+                var response = await _httpClient.GetAsync($"api/Product");
+                if (response.IsSuccessStatusCode)
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                        return Enumerable.Empty<ProductDto>();
+                    return await response.Content.ReadFromJsonAsync<IEnumerable<ProductDto>>();
+                }
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception(errorMessage);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public async Task<ProductDto> GetItem(int id)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"api/Product/{id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                        return default(ProductDto);
+                    return await response.Content.ReadFromJsonAsync<ProductDto>();
+                }
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception(errorMessage);
             }
             catch (Exception)
             {
