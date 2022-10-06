@@ -35,7 +35,29 @@ namespace ShopOnline.Web.Services
             }
         }
 
-        public async Task<IEnumerable<CartItemDto>> LoadItemsAsync(int userId)
+        public async Task<CartItemDto> DeleteItemAsync(int id)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"api/ShoppingCart/{id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                        return default(CartItemDto);
+
+                    return await response.Content.ReadFromJsonAsync<CartItemDto>();
+                }
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Http status: {response.StatusCode} Message: {errorMessage}");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<ICollection<CartItemDto>> LoadItemsAsync(int userId)
         {
             try
             {
@@ -43,9 +65,9 @@ namespace ShopOnline.Web.Services
                 if (response.IsSuccessStatusCode)
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
-                        return Enumerable.Empty<CartItemDto>();
+                        return Enumerable.Empty<CartItemDto>().ToList();
 
-                    return await response.Content.ReadFromJsonAsync<IEnumerable<CartItemDto>>();
+                    return await response.Content.ReadFromJsonAsync<ICollection<CartItemDto>>();
                 }
                 var errorMessage = await response.Content.ReadAsStringAsync();
                 throw new Exception($"Http status: {response.StatusCode} Message: {errorMessage}");

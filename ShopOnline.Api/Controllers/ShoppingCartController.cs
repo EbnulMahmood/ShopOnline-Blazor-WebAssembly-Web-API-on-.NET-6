@@ -84,5 +84,25 @@ namespace ShopOnline.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<CartItemDto>> DeleteItemAsync(int id)
+        {
+            try
+            {
+                var cartItem = await _cartRepository.DeleteCartItemAsync(id);
+                if (cartItem == null) return NotFound();
+
+                var product = await _productRepository.GetProductByIdAsync(cartItem.ProductId);
+                if (product == null) return NotFound();
+
+                var cartItemDto = cartItem.ConvertToDto(product);
+                return Ok(cartItemDto);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
     }
 }
