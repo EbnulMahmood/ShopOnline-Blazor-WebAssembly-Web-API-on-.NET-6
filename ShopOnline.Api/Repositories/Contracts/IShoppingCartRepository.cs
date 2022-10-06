@@ -9,10 +9,10 @@ namespace ShopOnline.Api.Repositories.Contracts
 {
     public interface IShoppingCartRepository
     {
-        Task<CartItem> AddItem(CartItemToAddDto cartItemToAddDto);
-        Task<CartItem> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdateDto);
-        Task<CartItem> DeleteItem(int id);
-        Task<CartItem> GetItem(int id);
-        Task<IEnumerable<CartItem>> LoadItems(int userId);
+        Task<CartItem> AddCartItemAsync(CartItemToAddDto cartItemToAddDto);
+        Task<CartItem> UpdateQtyAsync(int id, CartItemQtyUpdateDto cartItemQtyUpdateDto);
+        Task<CartItem> DeleteCartItemAsync(int id);
+        Task<CartItem> GetCartItemAsync(int id);
+        Task<IEnumerable<CartItem>> LoadCartItemsAsync(int userId);
     }
 }

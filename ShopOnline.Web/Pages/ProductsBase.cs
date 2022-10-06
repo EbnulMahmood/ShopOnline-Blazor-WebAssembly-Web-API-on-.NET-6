@@ -12,7 +12,7 @@ namespace ShopOnline.Web.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Products = await ProductService.LoadItems();
+            Products = await ProductService.LoadItemsAsync();
         }
 
         protected IOrderedEnumerable<IGrouping<int, ProductDto>> LoadGroupedProductsByCategory()

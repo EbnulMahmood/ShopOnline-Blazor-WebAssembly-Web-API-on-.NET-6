@@ -28,8 +28,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ShopOnlineDbContext>(options =>
-    // options.UseSqlServer(builder.Configuration.GetConnectionString("ShopOnlineConnection"))
-    options.UseSqlServer(builder.Configuration.GetConnectionString("HomeShopOnlineConnection"))
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ShopOnlineConnection"))
+    // options.UseSqlServer(builder.Configuration.GetConnectionString("HomeShopOnlineConnection"))
 );
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();

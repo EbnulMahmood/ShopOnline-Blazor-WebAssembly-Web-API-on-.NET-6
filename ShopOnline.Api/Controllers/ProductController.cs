@@ -18,7 +18,7 @@ namespace ShopOnline.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> LoadItems()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> LoadItemsAsync()
         {
             try
             {
@@ -37,7 +37,7 @@ namespace ShopOnline.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<ProductDto>> GetItem(int id)
+        public async Task<ActionResult<ProductDto>> GetItemAsync(int id)
         {
             try
             {
