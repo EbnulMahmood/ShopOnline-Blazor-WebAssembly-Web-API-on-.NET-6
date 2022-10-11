@@ -7,6 +7,7 @@ namespace ShopOnline.Web.Services
     public class ProductService : IProductService
     {
         private readonly HttpClient _httpClient;
+        private readonly string _apiProductURL = "api/Product";
 
         public ProductService(HttpClient httpClient)
         {
@@ -17,7 +18,7 @@ namespace ShopOnline.Web.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync($"api/Product");
+                var response = await _httpClient.GetAsync(_apiProductURL);
                 if (response.IsSuccessStatusCode)
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -37,7 +38,7 @@ namespace ShopOnline.Web.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync($"api/Product/{id}");
+                var response = await _httpClient.GetAsync($"{_apiProductURL}/{id}");
                 if (response.IsSuccessStatusCode)
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
