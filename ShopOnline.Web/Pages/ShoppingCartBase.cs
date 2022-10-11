@@ -41,7 +41,7 @@ namespace ShopOnline.Web.Pages
 
         private async Task MakeUpdateQtyButtonVisible(int id, bool visible)
         {
-            await Js.InvokeVoidAsync("makeUpdateQtyButtonVisible", id, visible);
+            await Js.InvokeVoidAsync("MakeUpdateQtyButtonVisible", id, visible);
         }
 
         private void UpdateItemTotalPrice(CartItemDto cartItemDto)

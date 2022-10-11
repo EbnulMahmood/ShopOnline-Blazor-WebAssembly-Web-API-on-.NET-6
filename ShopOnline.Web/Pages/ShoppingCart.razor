@@ -29,7 +29,7 @@
                                     @bind="@item.Qty"
                                     @oninput="() => UpdateQtyInput(item.Id)"
                                 />
-                                <button data-item-id="@item.Id" class="btn btn-info btn-sm update-qty"
+                                <button data-itemId="@item.Id" class="btn btn-info btn-sm update-qty"
                                     @onclick="(() => UpdateQtyCartItemClick(item.Id, item.Qty))"
                                 >
                                     Update Qty
